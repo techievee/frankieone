@@ -1,0 +1,8 @@
+app_env: "test"
+service:
+  host: ""
+  tls:
+    host: ""
+    port: "8081"
+    certificate: "./cert/cert.pem"
+    key: "./cert/key.pem"
