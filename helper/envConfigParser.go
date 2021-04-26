@@ -1,4 +1,4 @@
-package frankieoneHelper
+package helper
 
 import (
 	"bytes"

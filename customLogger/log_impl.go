@@ -1,10 +1,10 @@
-package frankieoneLogger
+package customLogger
 
 import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"github.com/techievee/frankieone/frankieoneLogger/debugcore"
+	"github.com/techievee/frankieone/customLogger/debugcore"
 )
 
 type options struct {

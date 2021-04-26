@@ -1,0 +1,166 @@
+consumes:
+- application/json
+definitions:
+  DeviceCheckDetailsObjectCollection:
+    properties:
+      DeviceCheckDetailsObjectCollection:
+        description: Array of DeviceCheckDetailsObjects
+        items:
+          $ref: '#/definitions/DeviceCheckDetailsObjects'
+        type: array
+        x-go-name: DeviceCheckDetailsObjects
+    required:
+    - DeviceCheckDetailsObjectCollection
+    type: object
+    x-go-package: _/Users/vinod/go/go1.16.3/src/github.com/techievee/frankieone/testSDKService
+  DeviceCheckDetailsObjects:
+    description: Contains any or all details we want to pass on to the device or biometric
+      checking service as part of an activity or transaction. A transaction isn't
+      just a payment, but can represent a number of different interaction types. See
+      below for more
+    properties:
+      activityData:
+        description: |-
+          A collection of loosely typed Key-Value-Pairs, which contain arbitrary data to be passed on to the verification services.
+          The API will verify that:
+
+          the list of "Keys" provided are unique to the call (no double-ups)
+          that the Value provided matches the Type specified.
+          Should the verification fail, the error message returned will include information for each KVP pair that fails.
+        items:
+          $ref: '#/definitions/KeyValuePairObject'
+        type: array
+        x-go-name: ActivityData
+      activityType:
+        description: |-
+          The type of activity we're checking. Choices are
+          SIGNUP: Used when an entity is signing up to your service
+          LOGIN: Used when an already registered entity is logging in to your service
+          PAYMENT: Used when you wish to check that all is well for a payment
+          CONFIRMATION: User has confirmed an action and you wish to double check they're still legitimate
+          You can also supply vendor specific activityTypes if you know them. To do this, make the first character an underscore _.
+          So for example, to use BioCatch's LOGIN_3 type, you can send "_LOGIN_3" as a value. Note, if you do this, there is no error checking on the Frankie side, and thus if you supply an incorrect value, the call will fail
+        enum:
+        - SIGNUP
+        - LOGIN
+        - PAYMENT
+        - CONFIRMATION
+        type: string
+        x-go-name: ActivityType
+      checkSessionKey:
+        description: |-
+          The unique session based ID that will be checked against the service.
+          Service key must be unique or an error will be returned.
+        type: string
+        x-go-name: CheckSessionKey
+      checkType:
+        description: |-
+          Describes the type of check service we need to verify with. Choices are:
+          DEVICE: Services that will be checking device characteristics
+          BIOMETRIC: Services that will be checking biomentric characteristics
+          COMBO: If you're using a service that combines both device and biometric information, use this.
+        enum:
+        - DEVICE
+        - BIOMETRIC
+        - COMBO
+        type: string
+        x-go-name: CheckType
+    type: object
+    x-go-name: DeviceCheckDetailsObject
+    x-go-package: _/Users/vinod/go/go1.16.3/src/github.com/techievee/frankieone/testSDKService
+  ErrorObject:
+    properties:
+      code:
+        description: Description of what went wrong (if we can tell)
+        format: int64
+        type: integer
+        x-go-name: Code
+      message:
+        description: Description of what went wrong (if we can tell)
+        example: Everything is wrong. Go fix it
+        type: string
+        x-go-name: Message
+    type: object
+    x-go-package: _/Users/vinod/go/go1.16.3/src/github.com/techievee/frankieone/testSDKService
+  KeyValuePairObject:
+    description: Individual key-value pair
+    properties:
+      kvpKey:
+        description: Name of the data
+        example: ip.address
+        type: string
+        x-go-name: KvpKey
+      kvpType:
+        enum:
+        - general.string
+        - general.integer
+        - general.float
+        - general.bool
+        type: string
+        x-go-name: KvpType
+      kvpValue:
+        description: Value of the data
+        example: 1.23.45.123
+        type: string
+        x-go-name: KvpValue
+    type: object
+    x-go-package: _/Users/vinod/go/go1.16.3/src/github.com/techievee/frankieone/testSDKService
+  PuppyObject:
+    description: Everyone gets a puppy if the SDK output is good
+    properties:
+      puppy:
+        default: true
+        description: Everyone gets a puppy if the SDK output is good
+        example: true
+        type: boolean
+        x-go-name: Puppy
+    required:
+    - puppy
+    type: object
+    x-go-package: _/Users/vinod/go/go1.16.3/src/github.com/techievee/frankieone/testSDKService
+host: localhost:8081
+info:
+  contact:
+    email: vinodkumarjayarajan@gmail.com
+    name: Vinod Kumar jayarajan
+  description: |-
+    This API allows developers to test the Universal SDK output to ensure it looks right..
+    The traditional Swagger view of this documentation can be found here:\n  - https://app.swaggerhub.com/apis-docs/FrankieFinancial/TestUniversalSDK
+  title: Frankie Financial Universal SDK Tester API (Internal Only)
+  version: 1.0.3
+paths:
+  /isgood:
+    post:
+      consumes:
+      - application/json
+      description: The body that you post here should be the direct output of the
+        SDK's GetSessionData call
+      operationId: Test
+      parameters:
+      - description: This is what the JSON that is exported from the SDK should look
+          like. It is an array of objects that contain the details from each different
+          provider wrapped up in the Universal SDK.
+        in: body
+        items:
+          $ref: '#/definitions/DeviceCheckDetailsObjects'
+        name: deviceCheckDetails
+        required: true
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: The data is fine. No issues, and everyone gets a puppy.
+          schema:
+            $ref: '#/definitions/PuppyObject'
+        "500":
+          description: The system is presently unavailable, or running in a severely
+            degraded state. Check the error message for details
+          schema:
+            $ref: '#/definitions/ErrorObject'
+      summary: Simple check to see if the service is running smoothly.
+produces:
+- application/json
+schemes:
+- https
+swagger: "2.0"

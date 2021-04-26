@@ -1,4 +1,4 @@
-package frankieoneLogger
+package customLogger
 
 import (
 	"os"
@@ -69,7 +69,7 @@ func NewConfig() zap.Config {
 	}
 }
 
-// Info will accept custom argument pairs that you wish to xeroLog.
+// Info will accept custom argument pairs that you wish to  Log.
 // It will produce a json-encoded string.
 // See: https://godoc.org/go.uber.org/zap
 func Info(msg string, keysAndValues ...interface{}) {
@@ -77,7 +77,7 @@ func Info(msg string, keysAndValues ...interface{}) {
 	sugar.Infow(msg, keysAndValues...)
 }
 
-// Warn will accept custom argument pairs that you wish to xeroLog.
+// Warn will accept custom argument pairs that you wish to  Log.
 // It will produce a json-encoded string.
 // See: https://godoc.org/go.uber.org/zap
 func Warn(msg string, keysAndValues ...interface{}) {
@@ -85,7 +85,7 @@ func Warn(msg string, keysAndValues ...interface{}) {
 	sugar.Warnw(msg, keysAndValues...)
 }
 
-// Debug will accept custom argument pairs that you wish to xeroLog.
+// Debug will accept custom argument pairs that you wish to  Log.
 // It will produce a json-encoded string.
 // See: https://godoc.org/go.uber.org/zap
 func Debug(msg string, keysAndValues ...interface{}) {
@@ -93,7 +93,7 @@ func Debug(msg string, keysAndValues ...interface{}) {
 	sugar.Debugw(msg, keysAndValues...)
 }
 
-// Error will accept custom argument pairs that you wish to xeroLog.
+// Error will accept custom argument pairs that you wish to  Log.
 // It will produce a json-encoded string.
 // See: https://godoc.org/go.uber.org/zap
 func Error(msg string, keysAndValues ...interface{}) {

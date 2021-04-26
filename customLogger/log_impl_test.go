@@ -1,4 +1,4 @@
-package frankieoneLogger
+package customLogger
 
 import (
 	"errors"
@@ -9,7 +9,7 @@ import (
 )
 
 func TestNewLogger(t *testing.T) {
-	l := NewLogger("dev", WithServiceName("xero-api"), WithExtraFields(zap.Int("cpu", 30)))
+	l := NewLogger("dev", WithServiceName("frankieOne-api"), WithExtraFields(zap.Int("cpu", 30)))
 	testErr := errors.New("service error")
 	assert.NotPanics(t, func() {
 		l.Info("there is info", "error", testErr)
