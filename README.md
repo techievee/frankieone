@@ -1,7 +1,9 @@
 ## FrankieOne Test SDK REST API Service written in Golang using GIN Framework
-> Golang 1.16 | Sqllite | GoGin Framework |  | ZAP Logger | Docker | CircleCI
+> Golang 1.16  | GoGin Framework  | ZAP Logger | Docker | CircleCI
 
 [![<techievee>](https://circleci.com/gh/techievee/frankieone.svg?style=svg)](<https://circleci.com/gh/techievee/frankieone>)
+
+[![codecov](https://codecov.io/gh/techievee/frankieone/branch/master/graph/badge.svg?token=3ASLAUCRFD)](https://codecov.io/gh/techievee/frankieone)
 
 ## Run prebuilt image
 To Run the pre-built docker image, that automatically builds with every new push
